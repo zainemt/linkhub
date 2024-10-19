@@ -10,7 +10,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -36,8 +35,7 @@ public class User implements Serializable {
 	private @Getter @Setter Integer roomQuantity;
 	
 	@OneToMany
-	@JoinColumn(name = "tb_links")
-	private Set<User> links = new HashSet<>();
+	private @Getter Set<Link> links = new HashSet<>();
 	
 	public User() {}
 
