@@ -12,12 +12,15 @@ import com.una.linkhub.model.User;
 import com.una.linkhub.repositories.LinkRepository;
 import com.una.linkhub.repositories.UserRepository;
 
+import io.github.cdimascio.dotenv.Dotenv;
+
 @Configuration
 @Profile("test")
 public class TestProfileConfig implements CommandLineRunner {
 	
-	private static int defaultRoomQuantity = 3;
-
+	@Autowired
+	private Dotenv dotenv;
+	
 	@Autowired
 	private UserRepository userRepository;
 	
@@ -27,8 +30,8 @@ public class TestProfileConfig implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 	
-		User user1 = new User(null, "zaine", "zaine@gmail", "zaine1", "123", defaultRoomQuantity);
-		User user2 = new User(null, "laysa", "laysa@gmail", "laysa1", "123", defaultRoomQuantity);
+		User user1 = new User(null, "zaine", "zaine@gmail", "zaine1", "123", Integer.parseInt(dotenv.get("default_Room_Quantity")));
+		User user2 = new User(null, "laysa", "laysa@gmail", "laysa1", "123", Integer.parseInt(dotenv.get("default_Room_Quantity")));
 		
 		userRepository.saveAll(Arrays.asList(user1, user2));
 		
