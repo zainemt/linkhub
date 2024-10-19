@@ -23,5 +23,10 @@ public class UserService {
 		Optional<User> user = repository.findById(id);
 		return user.get();
 	}
+	
+	public User findByUsername(String username) {
+		User user = repository.findByUsername(username);
+		return user;
+	}
 
 }
