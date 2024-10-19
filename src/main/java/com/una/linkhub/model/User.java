@@ -1,13 +1,17 @@
 package com.una.linkhub.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,6 +34,10 @@ public class User implements Serializable {
 	private @Getter @Setter String username;
 	private @Getter String password;
 	private @Getter @Setter Integer roomQuantity;
+	
+	@OneToMany
+	@JoinColumn(name = "tb_links")
+	private Set<User> links = new HashSet<>();
 	
 	public User() {}
 
