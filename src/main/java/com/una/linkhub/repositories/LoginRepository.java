@@ -4,10 +4,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.una.linkhub.model.Login;
-import com.una.linkhub.model.User;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long>{
+public interface LoginRepository extends JpaRepository<Login, Long> {
 	
-	User findByCredenciais(Login credenciais);
+	Login findByUsername(String username);
+
 }

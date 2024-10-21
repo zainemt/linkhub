@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.una.linkhub.model.Login;
 import com.una.linkhub.model.User;
 import com.una.linkhub.repositories.UserRepository;
 
@@ -24,9 +25,8 @@ public class UserService {
 		return user.get();
 	}
 	
-	public User findByUsername(String username) {
-		User user = repository.findByUsername(username);
-		return user;
+	public User findByCredenciais(Login credenciais) {
+		return repository.findByCredenciais(credenciais);
 	}
 
 }

@@ -3,7 +3,9 @@ package com.una.linkhub.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.una.linkhub.model.Login;
 import com.una.linkhub.model.User;
+import com.una.linkhub.repositories.LoginRepository;
 
 @Service
 public class LoginService {
@@ -11,24 +13,29 @@ public class LoginService {
 	@Autowired
 	private UserService userService;
 	
-	public boolean checkPassword(String username, String password) {
+	@Autowired
+	private LoginRepository repository;
+	
+	public User checkPassword(Login login) {
 		
 		//criptograr a senha que esta sendo recebida 
 		//verificar se a senha criptografada é igual a criptografia do banco
 		
-		User user = userService.findByUsername(username);
+		Login credenciais = repository.findByUsername(login.getUsername());
 		
-		if (user.getPassword().equals(password)) {
-			return true;
+		if (credenciais != null && credenciais.getPassword().equals(login.getPassword())) {
+			return userService.findByCredenciais(credenciais);
 		}
-		return false;
+		return null;
 	}
 	
-	public String login(String username, String password) {
-		if (checkPassword(username, password)) {
+	public String login(Login login) {
+		User user = checkPassword(login);
+		System.out.println(user);
+		if (user != null) {
 			//gerar token caso seja válido
-			return "token do usuário + token do refresh";
+			return "conexão gerada";
 		}
-		else { return "inválido!";} 
+		else {return "inválido";} 
 	} 
 }
