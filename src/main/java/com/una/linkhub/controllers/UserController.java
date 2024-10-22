@@ -2,6 +2,7 @@ package com.una.linkhub.controllers;
 
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -35,13 +36,13 @@ public class UserController {
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<User> findById(@PathVariable Long id) {
+	public ResponseEntity<User> findById(@PathVariable UUID id) {
 		User user = service.findById(id);
 		return ResponseEntity.ok().body(user);
 	}
 	
 	@GetMapping(value = "/{id}/links")
-	public ResponseEntity<Set<Link>> getUserLinks(@PathVariable Long id) {
+	public ResponseEntity<Set<Link>> getUserLinks(@PathVariable UUID id) {
 		User user = service.findById(id);
 		Set<Link> links = user.getLinks();
 		return ResponseEntity.ok().body(links);

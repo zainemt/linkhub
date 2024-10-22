@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.UUID;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -25,8 +26,8 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private @Getter @Setter Long id;
+	@GeneratedValue(strategy = GenerationType.UUID)
+	private @Getter @Setter UUID id;
 	
 	private @Getter @Setter String name;
 	@Column(unique = true)
@@ -42,11 +43,10 @@ public class User implements Serializable {
 	
 	public User() {}
 
-	public User(Long id, String name, String email, Integer roomQuantity) {
+	public User(UUID id, String name, String email) {
 		this.id = id;
 		this.name = name;
-		this.email = email;
-		this.roomQuantity = roomQuantity;
+		this.email = email;;
 	}
 
 	@Override

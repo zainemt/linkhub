@@ -12,19 +12,14 @@ import com.una.linkhub.model.Login;
 import com.una.linkhub.model.User;
 import com.una.linkhub.repositories.LinkRepository;
 import com.una.linkhub.repositories.LoginRepository;
-import com.una.linkhub.repositories.UserRepository;
-
-import io.github.cdimascio.dotenv.Dotenv;
+import com.una.linkhub.services.UserService;
 
 @Configuration
 @Profile("test")
 public class TestProfileConfig implements CommandLineRunner {
 	
 	@Autowired
-	private Dotenv dotenv;
-	
-	@Autowired
-	private UserRepository userRepository;
+	private UserService userService;
 	
 	@Autowired
 	private LinkRepository linkRepository;
@@ -34,10 +29,11 @@ public class TestProfileConfig implements CommandLineRunner {
 	
 	@Override
 	public void run(String... args) throws Exception {
-		User user1 = new User(null, "zaine", "zaine@gmail", Integer.parseInt(dotenv.get("default_Room_Quantity")));
-	    User user2 = new User(null, "laysa", "laysa@gmail", Integer.parseInt(dotenv.get("default_Room_Quantity")));
-
-	    userRepository.saveAll(Arrays.asList(user1, user2));
+		User user1 = new User(null, "zaine", "zaine@gmail");
+	    User user2 = new User(null, "laysa", "laysa@gmail");
+	    
+	    userService.insert(user1);
+	    userService.insert(user2);
 
 	    //------------------------------------
 	    Login login1 = new Login(null, "zaine1", "123", user1);
@@ -48,7 +44,8 @@ public class TestProfileConfig implements CommandLineRunner {
 	    user1.setCredenciais(login1);
 	    user2.setCredenciais(login2);
 	    
-	    userRepository.saveAll(Arrays.asList(user1, user2));
+	    userService.insert(user1);
+	    userService.insert(user2);
 	    
 	    //-----------------------------------------------
 	    
@@ -60,7 +57,8 @@ public class TestProfileConfig implements CommandLineRunner {
 	    user1.getLinks().add(link1);
 	    user2.getLinks().add(link2);
 	    
-	    userRepository.saveAll(Arrays.asList(user1, user2));
+	    userService.insert(user1);
+	    userService.insert(user2);
 	}
 
 }
