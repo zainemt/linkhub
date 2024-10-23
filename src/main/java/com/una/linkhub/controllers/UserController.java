@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.una.linkhub.dto.UserDTO;
 import com.una.linkhub.model.Link;
 import com.una.linkhub.model.Login;
 import com.una.linkhub.model.User;
@@ -30,28 +31,28 @@ public class UserController {
 	private LoginService loginService;
 	
 	@GetMapping
-	public ResponseEntity<List<User>> findAll() {
-		List<User> userList = service.findAll();
+	public ResponseEntity<List<UserDTO>> findAll() {
+		List<UserDTO> userList = service.findAll();
 		return ResponseEntity.ok().body(userList);
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<User> findById(@PathVariable UUID id) {
-		User user = service.findById(id);
+	public ResponseEntity<UserDTO> findById(@PathVariable UUID id) {
+		UserDTO user = service.findById(id);
 		return ResponseEntity.ok().body(user);
 	}
 	
 	@GetMapping(value = "/{id}/links")
 	public ResponseEntity<Set<Link>> getUserLinks(@PathVariable UUID id) {
-		User user = service.findById(id);
+		UserDTO user = service.findById(id);
 		Set<Link> links = user.getLinks();
 		return ResponseEntity.ok().body(links);
 	}
 	
 	@PostMapping
-	public ResponseEntity<User> findByCredenciais(@RequestBody Login credenciais) {
+	public ResponseEntity<UserDTO> findByCredenciais(@RequestBody Login credenciais) {
 		User user = loginService.checkPassword(credenciais);
-		return ResponseEntity.ok().body(user);
+		return ResponseEntity.ok().body(service.userToDTO(user));
 	}
 	
 }

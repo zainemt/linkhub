@@ -2,14 +2,14 @@ package com.una.linkhub.model;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -22,25 +22,22 @@ public class Login implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@JsonIgnore
-	private @Getter @Setter Long id;
+	private @Getter @Setter UUID id;
 	
 	@Column(unique = true)
 	private @Getter @Setter String username;
 	private @Getter @Setter String password;
 	
 	@OneToOne
+	@MapsId
 	@JsonIgnore
 	private @Getter @Setter User user;
 	
 	public Login() {}
 
-	public Login(Long id, String username, String password, User user) {
-		this.id = id;
+	public Login(String username, String password) {
 		this.username = username;
 		this.password = password;
-		this.user = user;
 	}
 
 	@Override

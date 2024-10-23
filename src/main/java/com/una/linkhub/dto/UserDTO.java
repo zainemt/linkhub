@@ -1,7 +1,12 @@
 package com.una.linkhub.dto;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
+
+import com.una.linkhub.model.Link;
+import com.una.linkhub.model.User;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -14,14 +19,15 @@ public class UserDTO implements Serializable {
 	private @Getter @Setter String username;
 	private @Getter @Setter String email;
 
+	private @Getter @Setter Set<Link> links = new HashSet<>();
+	
 	public UserDTO() {};
 	
-	public UserDTO(UUID id, String username, String email) {
-		this.id = id;
-		this.username = username;
-		this.email = email;
+	public UserDTO(User user) {
+		this.id = user.getId();
+		this.username = user.getCredenciais().getUsername();
+		this.email = user.getEmail();
+		this.links = user.getLinks();
 	}
-	
-	
 
 }

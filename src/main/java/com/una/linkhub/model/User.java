@@ -9,6 +9,7 @@ import java.util.UUID;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -30,23 +31,24 @@ public class User implements Serializable {
 	private @Getter @Setter UUID id;
 	
 	private @Getter @Setter String name;
+	
 	@Column(unique = true)
 	private @Getter String email;
 	
-	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "user", cascade = CascadeType.MERGE)
 	private @Getter @Setter Login credenciais;
 	
 	private @Getter @Setter Integer roomQuantity;
 	
-	@OneToMany
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private @Getter Set<Link> links = new HashSet<>();
 	
 	public User() {}
 
-	public User(UUID id, String name, String email) {
-		this.id = id;
+	public User(String name, String email, Login credenciais) {
 		this.name = name;
-		this.email = email;;
+		this.email = email;
+		this.credenciais = credenciais;
 	}
 
 	@Override

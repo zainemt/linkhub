@@ -37,5 +37,5 @@ public class LoginService {
 			return "conexão gerada";
 		}
 		else {return "inválido";} 
-	} 
+	}
 }

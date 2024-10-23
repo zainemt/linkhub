@@ -14,8 +14,10 @@ public class RegisterService {
 	
 	public UserDTO RegisterUser(User user) {
 		//criptografar a senha enviada pelo usuário
+		
+		//adiciona o usuário no banco e retorna o usuário final, contendo id e demais informações
 		User registeredUser = userService.insert(user);
-		return new UserDTO(registeredUser.getId(), registeredUser.getCredenciais().getUsername(), registeredUser.getEmail());
+		return new UserDTO(registeredUser);
 	}
 
 }
