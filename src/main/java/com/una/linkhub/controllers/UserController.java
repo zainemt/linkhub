@@ -42,6 +42,12 @@ public class UserController {
 		return ResponseEntity.ok().body(user);
 	}
 	
+	@GetMapping(value = "/{id}/completo")
+	public ResponseEntity<User> findByIdreturnUser(@PathVariable UUID id) {
+		User user = service.findByIdReturnUser(id);
+		return ResponseEntity.ok().body(user);
+	}
+	
 	@GetMapping(value = "/{id}/links")
 	public ResponseEntity<Set<Link>> getUserLinks(@PathVariable UUID id) {
 		UserDTO user = service.findById(id);
@@ -54,5 +60,6 @@ public class UserController {
 		User user = loginService.checkPassword(credenciais);
 		return ResponseEntity.ok().body(service.userToDTO(user));
 	}
+	
 	
 }

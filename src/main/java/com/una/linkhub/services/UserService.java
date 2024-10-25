@@ -57,5 +57,9 @@ public class UserService {
 		return new UserDTO(user);
 	}
 	
-
+	public User findByIdReturnUser(UUID id) {
+		Optional<User> user = repository.findById(id);
+		return user.get();
+	}
+	
 }

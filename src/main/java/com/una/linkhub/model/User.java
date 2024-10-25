@@ -6,6 +6,8 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -42,6 +44,10 @@ public class User implements Serializable {
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private @Getter Set<Link> links = new HashSet<>();
+	
+	@OneToMany
+	@JsonIgnore
+	private @Getter @Setter Set<UserRoom> rooms = new HashSet<>();
 	
 	public User() {}
 

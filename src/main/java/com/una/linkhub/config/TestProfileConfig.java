@@ -45,8 +45,7 @@ public class TestProfileConfig implements CommandLineRunner {
 	    user1.getLinks().add(link1);
 	    user2.getLinks().add(link2);
 	    
-	    userService.save(user1);
-	    userService.save(user2);
+	    
+	    
 	}
-
 }
